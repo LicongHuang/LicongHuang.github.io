@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Side Panel Example</title>
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      height: 100vh;
+    }
+    #side-panel {
+      width: 250px;
+      background-color: #f4f4f4;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+    #side-panel nav a {
+      display: block;
+      margin: 10px 0;
+      text-decoration: none;
+      color: #007BFF;
+    }
+    #main-content {
+      flex: 1;
+      padding: 20px;
+      background-color: #fff;
+    }
+    #main-content h2 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Side Panel -->
+  <div id="side-panel">
+    <h2>Menu</h2>
+    <nav>
+      <a href="#" hx-get="about.html" hx-target="#main-content">About</a>
+      <a href="#" hx-get="services.html" hx-target="#main-content">Services</a>
+      <a href="#" hx-get="contact.html" hx-target="#main-content">Contact</a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main-content">
+    <h2>Welcome to My GitHub Page</h2>
+    <p>Select a page from the side panel to load content here.</p>
+  </div>
+  <script src="scripts.js"></script>
+</body>
+</html>
