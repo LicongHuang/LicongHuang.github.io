@@ -9,3 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
   toggleButton.onclick = () => sidePanel.classList.toggle('collapsed');
   sidePanel.appendChild(toggleButton);
 });
+
+export class Vector {
+  x;
+  y;
+
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
