@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Isometric Chessboard</title>
   <style>
     body, html {
       margin: 0;
@@ -25,6 +24,7 @@
 <body>
   <canvas id="chessboard-canvas" width="600" height="600"></canvas>
   <script>
+    import { Vector } from './vector.js'
     const canvas = document.getElementById('chessboard-canvas');
     const ctx = canvas.getContext('2d');
 
