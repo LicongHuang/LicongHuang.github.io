@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isometric Chessboard</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="chessboard-canvas"></canvas>
+  <script>
+    const canvas = document.getElementById('chessboard-canvas');
+    const gl = canvas.getContext('webgl');
+
+    if (!gl) {
+      console.error('WebGL not supported, falling back on experimental-webgl');
+      gl = canvas.getContext('experimental-webgl');
+    }
+
+    if (!gl) {
+      alert('Your browser does not support WebGL');
+    }
+
+    // Set up WebGL viewport
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+
+    // Vertex shader program
+    const vsSource = `
+      attribute vec4 aVertexPosition;
+      uniform mat4 uModelViewMatrix;
+      uniform mat4 uProjectionMatrix;
+      void main() {
+        gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+      }
+    `;
+
+    // Fragment shader program
+    const fsSource = `
+      void main() {
+        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0); // White color
+      }
+    `;
+
+    // Initialize shaders
+    const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
+    const programInfo = {
+      program: shaderProgram,
+      attribLocations: {
+        vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
+      },
+      uniformLocations: {
+        projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
+        modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+      },
+    };
+
+    // Create buffers
+    const buffers = initBuffers(gl);
+
+    // Draw the scene
+    function drawScene(gl, programInfo, buffers) {
+      gl.clearColor(0.0, 0.0, 0.0, 1.0); // Clear to black
+      gl.clearDepth(1.0); // Clear everything
+      gl.enable(gl.DEPTH_TEST); // Enable depth testing
+      gl.depthFunc(gl.LEQUAL); // Near things obscure far things
+
+      // Clear the canvas
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+      // Create perspective matrix
+      const fieldOfView = (45 * Math.PI) / 180; // In radians
+      const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
+      const zNear = 0.1;
+      const zFar = 100.0;
+      const projectionMatrix = mat4.create();
+      mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
+
+      // Create model-view matrix
+      const modelViewMatrix = mat4.create();
+      mat4.translate(modelViewMatrix, modelViewMatrix, [-0.0, 0.0, -6.0]);
+
+      // Tell WebGL how to pull out the positions from the position buffer
+      {
+        const numComponents = 3; // Pull out 3 values per iteration
+        const type = gl.FLOAT; // The data in the buffer is 32bit floats
+        const normalize = false; // Don't normalize
+        const stride = 0; // How many bytes to get from one set of values to the next
+        const offset = 0; // How many bytes inside the buffer to start from
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
+        gl.vertexAttribPointer(
+          programInfo.attribLocations.vertexPosition,
+          numComponents,
+          type,
+          normalize,
+          stride,
+          offset
+        );
+        gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
+      }
+
+      // Use the shader program
+      gl.useProgram(programInfo.program);
+
+      // Set the shader uniforms
+      gl.uniformMatrix4fv(
+        programInfo.uniformLocations.projectionMatrix,
+        false,
+        projectionMatrix
+      );
+      gl.uniformMatrix4fv(
+        programInfo.uniformLocations.modelViewMatrix,
+        false,
+        modelViewMatrix
+      );
+
+      // Draw the chessboard
+      {
+        const offset = 0;
+        const vertexCount = 4;
+        gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
+      }
+    }
+
+    // Initialize shader program
+    function initShaderProgram(gl, vsSource, fsSource) {
+      const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
+      const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
+
+      const shaderProgram = gl.createProgram();
+      gl.attachShader(shaderProgram, vertexShader);
+      gl.attachShader(shaderProgram, fragmentShader);
+      gl.linkProgram(shaderProgram);
+
+      if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+        console.error('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));
+        return null;
+      }
+
+      return shaderProgram;
+    }
+
+    // Load shader
+    function loadShader(gl, type, source) {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.error('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
+        gl.deleteShader(shader);
+        return null;
+      }
+
+      return shader;
+    }
+
+    // Initialize buffers
+    function initBuffers(gl) {
+      const positionBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+
+      const positions = [
+        // Front face
+        -1.0, -1.0,  1.0,
+         1.0, -1.0,  1.0,
+        -1.0,  1.0,  1.0,
+         1.0,  1.0,  1.0,
+      ];
+
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+
+      return {
+        position: positionBuffer,
+      };
+    }
+
+    // Render the scene
+    function render() {
+      drawScene(gl, programInfo, buffers);
+      requestAnimationFrame(render);
+    }
+
+    // Start rendering
+    render();
+  </script>
+</body>
+</html>
