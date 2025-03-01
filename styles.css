@@ -1,0 +1,6 @@
+#side-panel.collapsed {
+  width: 50px;
+}
+#side-panel.collapsed nav {
+  display: none;
+}
