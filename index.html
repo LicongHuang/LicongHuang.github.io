@@ -37,6 +37,11 @@
       max-height: 200px;
       border-radius: 10px;
     }
+    #content {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -90,9 +95,13 @@
       }
     }
   </script>
+    <br>
     <h1> Nother part </h1>
     <nav>
       <a href='#' hx-get='another.html'hx-target="#content"> This is another page </a>
     </nav>
+    <div>
+      <p> Select a page from the nav</p>
+    </div>
 </body>
 </html>
