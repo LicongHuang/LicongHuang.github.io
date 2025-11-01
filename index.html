@@ -3,197 +3,304 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Project Portfolio — Three-Part Design Process</title>
-  <meta name="description" content="A single-project portfolio that walks through a three-part design process." />
+  <title>Sustainability Assistant — AC Footprint Tracker (Case Study)</title>
+  <meta name="description" content="A three-part portfolio case study: Discover (White), Design (Green), Deliver (Brown) for a Sustainability Assistant that tracks personal air-conditioning exposure and carbon impact." />
   <meta name="theme-color" content="#0C6F57" />
   <style>
     :root{
-      --white: #ffffff;
-      --ink: #0d0f13;
-      --muted-ink:#29303a;
-      --green: #0C6F57;
-      --green-ink: #ffffff;
-      --brown: #5A3A28;
-      --brown-ink: #ffffff;
-      --accent: #0C6F57;
-      --border: #e6e9ee;
-      --shadow: 0 6px 20px rgba(0,0,0,.08);
-      --radius: 14px;
-      --radius-sm: 10px;
-      --maxw: 1100px;
-      --navh: 64px;
+      --white:#ffffff; --ink:#0d0f13; --muted:#29303a;
+      --green:#0C6F57; --green-ink:#ffffff;
+      --brown:#5A3A28; --brown-ink:#ffffff;
+      --border:#e6e9ee; --shadow:0 6px 20px rgba(0,0,0,.08);
+      --radius:14px; --maxw:1100px; --navh:64px;
+      --accent:#0C6F57;
     }
     *,*::before,*::after{box-sizing:border-box}
-    body{
-      margin:0;
-      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      color:var(--muted-ink);
-      background:#fcfdff;
-      -webkit-font-smoothing:antialiased;
-    }
+    body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--muted);background:#fcfdff;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
     h1,h2,h3{color:var(--ink);line-height:1.25;margin:0 0 .6rem}
     p{margin:.2rem 0 1rem}
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
     img{max-width:100%;display:block}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-    .nav{
-      position:sticky;top:0;z-index:50;height:var(--navh);
-      background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(10px);
-      border-bottom:1px solid var(--border);
-    }
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:50;height:var(--navh);background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--border)}
     .nav .container{display:flex;align-items:center;height:100%;gap:16px}
-    .brand{font-weight:700;letter-spacing:.2px}
+    .brand{font-weight:700}
     .spacer{flex:1}
-    .tabs{display:flex;gap:8px;align-items:center;padding:.25rem;
-      border:1px solid var(--border);border-radius:999px;background:#fff;}
-    .tab{padding:.45rem .8rem;border-radius:999px;text-decoration:none;color:var(--muted-ink);
-      font-weight:600;border:1px solid transparent;}
-    .tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+    .tabs{display:flex;gap:8px;align-items:center;padding:.25rem;border:1px solid var(--border);border-radius:999px;background:#fff}
+    .tab{padding:.45rem .8rem;border-radius:999px;color:var(--muted);font-weight:600;border:1px solid transparent}
+    .tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+    /* HERO */
     .hero{padding:clamp(48px,9vw,120px) 0 48px;background:
       radial-gradient(1200px 500px at 80% -20%,rgba(12,111,87,.15),transparent 50%),
       radial-gradient(900px 400px at -10% 0%,rgba(90,58,40,.12),transparent 50%),
-      linear-gradient(#ffffff,#fbfcff);
-      border-bottom:1px solid var(--border);}
+      linear-gradient(#ffffff,#fbfcff);border-bottom:1px solid var(--border)}
     .hero h1{font-size:clamp(32px,6vw,56px)}
-    .kicker{display:inline-block;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-      font-size:.78rem;color:#4b5563;background:#eef6f3;border:1px solid #d8eee7;
-      padding:.25rem .5rem;border-radius:6px;margin-bottom:12px;}
-    .hero .lead{font-size:clamp(18px,2.6vw,22px);color:#475467}
-    .meta{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;color:#475467;}
-    .chip{border:1px solid var(--border);padding:.35rem .6rem;border-radius:999px;background:#fff;}
-    .rail{position:fixed;left:12px;top:calc(var(--navh) + 24px);
-      display:flex;flex-direction:column;gap:10px;z-index:40;}
-    .dot{width:14px;height:14px;border-radius:50%;outline:2px solid #fff;
-      box-shadow:0 0 0 1px rgba(0,0,0,.08);opacity:.5;transition:transform .15s ease,opacity .2s ease;}
+    .kicker{display:inline-block;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem;color:#4b5563;background:#eef6f3;border:1px solid #d8eee7;padding:.25rem .5rem;border-radius:6px;margin-bottom:12px}
+    .meta{display:flex;gap:12px;flex-wrap:wrap;color:#475467}
+    .chip{border:1px solid var(--border);padding:.35rem .6rem;border-radius:999px;background:#fff}
+    /* RAIL */
+    .rail{position:fixed;left:12px;top:calc(var(--navh) + 24px);display:flex;flex-direction:column;gap:10px;z-index:40}
+    .dot{width:14px;height:14px;border-radius:50%;outline:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.08);opacity:.5;transition:transform .15s ease,opacity .2s ease}
     .dot[aria-current="step"]{transform:scale(1.1);opacity:1}
-    .dot.white{background:var(--white)}.dot.green{background:var(--green)}.dot.brown{background:var(--brown)}
+    .dot.white{background:#fff}.dot.green{background:var(--green)}.dot.brown{background:var(--brown)}
+    /* SECTIONS */
     section{scroll-margin-top:calc(var(--navh) + 16px)}
-    .panel{padding:clamp(36px,6vw,72px) 0;}
-    .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);
-      padding:clamp(18px,2.5vw,28px);box-shadow:var(--shadow);}
+    .panel{padding:clamp(36px,6vw,72px) 0}
+    .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:clamp(18px,2.5vw,28px);box-shadow:var(--shadow)}
     .stack{display:grid;gap:18px}
     .grid2{display:grid;grid-template-columns:1fr;gap:18px}
-    @media(min-width:900px){.grid2{grid-template-columns:1fr 1fr}}
-    .p1{background:var(--white);color:var(--muted-ink)}
+    .grid3{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:900px){.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr 1fr 1fr}}
+    .p1{background:#ffffff;color:var(--muted)}
     .p2{background:var(--green);color:var(--green-ink)}
     .p2 .card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.22)}
-    .p2 h2,.p2 h3{color:#fff}
+    .p2 h2,.p2 h3,.p2 a{color:#fff}
     .p3{background:var(--brown);color:var(--brown-ink)}
     .p3 .card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.25)}
-    .p3 h2,.p3 h3{color:#fff}
-    footer{padding:32px 0 60px;border-top:1px solid var(--border);background:#fff}
+    .p3 h2,.p3 h3,.p3 a{color:#fff}
+    /* LISTS + PLACEHOLDERS */
     .ticks{list-style:none;padding:0;margin:0}
     .ticks li{padding-left:28px;position:relative;margin:.25rem 0}
-    .ticks li::before{content:"";position:absolute;left:0;top:.45em;width:16px;height:16px;border-radius:50%;
-      background:currentColor;opacity:.18;}
+    .ticks li::before{content:"";position:absolute;left:0;top:.45em;width:16px;height:16px;border-radius:50%;background:currentColor;opacity:.18}
     .mock{border:1px solid var(--border);border-radius:12px;background:
-      linear-gradient(180deg,rgba(0,0,0,.06),transparent 120px),#fff;
-      aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;
-      color:#6b7280;font-weight:600;}
-    .cta{background:#0c6f57;color:#fff;border-radius:var(--radius);
-      padding:28px;display:flex;align-items:center;justify-content:space-between;
-      gap:18px;flex-wrap:wrap;box-shadow:var(--shadow);}
+      linear-gradient(180deg,rgba(0,0,0,.06),transparent 120px),#fff;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;color:#6b7280;font-weight:600}
+    footer{padding:32px 0 60px;border-top:1px solid var(--border);background:#fff}
   </style>
 </head>
 <body>
+  <!-- NAV (no contact button) -->
   <nav class="nav" aria-label="Primary">
     <div class="container">
       <div class="brand">Your Name</div>
       <div class="spacer"></div>
-      <div class="tabs">
-        <a class="tab" href="#discover">Discover</a>
-        <a class="tab" href="#design">Design</a>
-        <a class="tab" href="#deliver">Deliver</a>
+      <div class="tabs" role="tablist" aria-label="Sections">
+        <a class="tab" href="#discover" role="tab" aria-controls="discover">Discover</a>
+        <a class="tab" href="#design" role="tab" aria-controls="design">Design</a>
+        <a class="tab" href="#deliver" role="tab" aria-controls="deliver">Deliver</a>
       </div>
     </div>
   </nav>
 
-  <div class="rail">
-    <a class="dot white" href="#discover"></a>
-    <a class="dot green" href="#design"></a>
-    <a class="dot brown" href="#deliver"></a>
+  <!-- Rail dots -->
+  <div class="rail" aria-label="Progress">
+    <a class="dot white" href="#discover" title="Discover (White)"></a>
+    <a class="dot green" href="#design" title="Design (Green)"></a>
+    <a class="dot brown" href="#deliver" title="Deliver (Brown)"></a>
   </div>
 
+  <!-- HERO -->
   <header class="hero">
     <div class="container">
       <span class="kicker">Case Study • Single Project</span>
-      <h1>Designing <em>Evergreen</em>: From Insight to Impact</h1>
+      <h1>Sustainability Assistant — Tracking Personal AC Exposure & Carbon Impact</h1>
       <p class="lead">
-        A three-stage journey through research, design, and delivery—mapped to a color-coded narrative:
-        <strong>White</strong> (Discover), <strong>Green</strong> (Design), and <strong>Brown</strong> (Deliver).
+        A three-stage narrative mapped by color: <strong>White</strong> (Discover), <strong>Green</strong> (Design),
+        and <strong>Brown</strong> (Deliver). :contentReference[oaicite:0]{index=0}
       </p>
       <div class="meta">
-        <span class="chip">Role: Product Designer</span>
-        <span class="chip">Timeline: 12 Weeks</span>
-        <span class="chip">Tools: Figma, Notion, Web Analytics</span>
+        <span class="chip">Role: Designer/Maker</span>
+        <span class="chip">Context: CS3240 Individual Assignment</span>
+        <span class="chip">Focus: Behaviour Change · Sustainability</span>
       </div>
     </div>
   </header>
 
-  <section id="discover" class="panel p1">
+  <!-- PART 1 — WHITE / DISCOVER -->
+  <section id="discover" class="panel p1" aria-labelledby="h-discover">
     <div class="container stack">
-      <h2>Part 1 — Discover ⚪</h2>
-      <p>We start with a blank canvas—interviews, data audits, and problem framing.</p>
+      <h2 id="h-discover">Part 1 — Discover ⚪</h2>
+
       <div class="grid2">
         <div class="card">
-          <h3>Objectives</h3>
+          <h3>Problem</h3>
+          <p>
+            Singapore’s deep reliance on air-conditioning drives significant electricity use and carbon emissions.
+            Individuals struggle to track how much cooling they passively “consume” in shared spaces (classrooms, malls, offices),
+            which blunts awareness and motivation to act. :contentReference[oaicite:1]{index=1}
+          </p>
+          <p>
+            Background reading: Channel NewsAsia commentary on air-conditioning and emissions
+            (<a href="https://www.channelnewsasia.com/commentary/air-con-unit-electricity-energy-carbon-emissions-climate-change-1339326">link</a>). :contentReference[oaicite:2]{index=2}
+          </p>
+        </div>
+        <div class="card">
+          <h3>Objective</h3>
           <ul class="ticks">
-            <li>Understand user goals and pain points</li>
-            <li>Define success metrics</li>
-            <li>Align stakeholders</li>
+            <li>Track and visualize an individual’s exposure to AC usage in daily life.</li>
+            <li>Translate exposure into approachable carbon signals. :contentReference[oaicite:3]{index=3}</li>
+            <li>Educate and nudge without becoming a chore. :contentReference[oaicite:4]{index=4}</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>Target Group</h3>
+          <p>Singapore-based students and working adults (18–30) who frequently use air-conditioned spaces and show some environmental concern. Excludes those indifferent to sustainability. :contentReference[oaicite:5]{index=5}</p>
+          <div class="grid2">
+            <div>
+              <h4>Inclusion</h4>
+              <ul>
+                <li>Ages 18–30</li>
+                <li>Students/working adults using AC often</li>
+                <li>Some environmental interest</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Exclusion</h4>
+              <ul>
+                <li>Rare AC users</li>
+                <li>Indifferent/dismissive toward sustainability</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Scope & Speculated Needs</h3>
+          <ul class="ticks">
+            <li>Periodic ambient readings (temperature, humidity). :contentReference[oaicite:6]{index=6}</li>
+            <li>Background tracking with minimal input; keep engagement high. :contentReference[oaicite:7]{index=7}</li>
+            <li>Clear displays and tips to reduce passive emissions. :contentReference[oaicite:8]{index=8}</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>User Research Plan</h3>
+          <p>Interviews with target users to probe awareness, interest, barriers, and motivators (e.g., gamification, social influence). :contentReference[oaicite:9]{index=9}</p>
+          <h4>Highlights from Interviews</h4>
+          <ul class="ticks">
+            <li>General environmental awareness, but AC footprint is hard to know. :contentReference[oaicite:10]{index=10}</li>
+            <li>Curious to see personal AC usage; manual tracking feels like a chore. :contentReference[oaicite:11]{index=11}</li>
+            <li>Real-time feedback unlikely to reduce time-in-space unless gamified. :contentReference[oaicite:12]{index=12}</li>
           </ul>
         </div>
         <div class="card">
-          <h3>Methods</h3>
-          <ul>
-            <li>User interviews</li>
-            <li>Heuristic evaluation</li>
-            <li>Analytics review</li>
+          <h3>Data Analysis & Artefacts</h3>
+          <p>Affinity notes & early framing on Miro (external): <a href="https://miro.com/app/board/uXjVJ4Io6Bo=/?share_link_id=764661826864">Data analysis board</a>. :contentReference[oaicite:13]{index=13}</p>
+          <div class="mock" aria-label="Research artefact placeholder">Research Summary / Affinity Map</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>How Might We…</h3>
+        <ul class="ticks">
+          <li>Ensure easy access to accurate ambient temperature? :contentReference[oaicite:14]{index=14}</li>
+          <li>Track AC exposure without being intrusive? :contentReference[oaicite:15]{index=15}</li>
+          <li>Keep users emotionally engaged so it’s not a chore? :contentReference[oaicite:16]{index=16}</li>
+          <li>Effectively display collected data and show small wins? :contentReference[oaicite:17]{index=17}</li>
+          <li>Provide actionable, personalized tips? :contentReference[oaicite:18]{index=18}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 2 — GREEN / DESIGN -->
+  <section id="design" class="panel p2" aria-labelledby="h-design">
+    <div class="container stack">
+      <h2 id="h-design">Part 2 — Design 🟢</h2>
+
+      <div class="grid3">
+        <div class="card">
+          <h3>Task 1 — Passive Recording</h3>
+          <p>Automatically capture temperature/humidity and infer AC exposure with minimal user input. :contentReference[oaicite:19]{index=19}</p>
+        </div>
+        <div class="card">
+          <h3>Task 2 — Engagement</h3>
+          <p>Use playful elements (e.g., an avatar reacting to conditions, daily “AC health”). :contentReference[oaicite:20]{index=20}</p>
+        </div>
+        <div class="card">
+          <h3>Task 3 — Display & Education</h3>
+          <p>Dashboards, clear summaries, and personalized tips to drive small, sustainable changes. :contentReference[oaicite:21]{index=21}</p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>Lo-Fi Concepts</h3>
+          <p>Physical device with two buttons: view avatar + temperature; send data (with feedback). Screen returns to menu after a short delay. :contentReference[oaicite:22]{index=22}</p>
+          <div class="mock" aria-label="LoFi menu mock">Lo-Fi Menu / Two-Button Flow</div>
+        </div>
+        <div class="card">
+          <h3>Dashboard Structure</h3>
+          <ul class="ticks">
+            <li>Top: summarized graph of AC exposure/carbon.</li>
+            <li>Middle: visualized ambient data over time.</li>
+            <li>Bottom: avatar (“doggo”) gives context & tips. :contentReference[oaicite:23]{index=23}</li>
           </ul>
+          <div class="mock" aria-label="Dashboard mock">Dashboard Triptych</div>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card">
+          <h3>Avatar States</h3>
+          <ul class="ticks">
+            <li>Hot</li><li>Normal</li><li>Cold</li>
+          </ul>
+          <div class="mock" aria-label="Avatar states">Doggo: Hot / Normal / Cold</div>
+          <p><small>Replace with your actual illustrations. :contentReference[oaicite:24]{index=24}</small></p>
+        </div>
+        <div class="card">
+          <h3>Information Design</h3>
+          <ul class="ticks">
+            <li>Plain-language explanations</li>
+            <li>“Small wins” surfaced prominently</li>
+            <li>Actionable micro-tips tied to patterns</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Prototype Links</h3>
+          <p>Software exploration: <a href="https://miro.com/app/board/uXjVJ4Io6Bo=/?share_link_id=929668090729">Design workbook</a> · Hi-Fi screens: <a href="https://www.figma.com/design/bv7ZTPocPt96UDvfsalPDr/HIFI-CS3240-Individual?node-id=55-6487&t=8xwVCLaxcgSyxi1H-1">Figma file</a>. :contentReference[oaicite:25]{index=25}</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="design" class="panel p2">
+  <!-- PART 3 — BROWN / DELIVER -->
+  <section id="deliver" class="panel p3" aria-labelledby="h-deliver">
     <div class="container stack">
-      <h2>Part 2 — Design 🟢</h2>
-      <p>Green symbolizes growth—exploration to synthesis. Concepts evolve from sketches to prototypes.</p>
+      <h2 id="h-deliver">Part 3 — Deliver 🟤</h2>
+
       <div class="grid2">
         <div class="card">
-          <h3>Concepts</h3>
-          <ul class="ticks">
-            <li>Streamlined onboarding</li>
-            <li>Trust signals above the fold</li>
-          </ul>
+          <h3>Hi-Fi Build & Demo</h3>
+          <p>
+            Assembled a tangible prototype (“cardboard, tape and a dream”) to test composition and affordances.
+            Realization: the screen was too small relative to the enclosure and buttons—future iterations should size the device down or up-spec the display. :contentReference[oaicite:26]{index=26}
+          </p>
+          <div class="mock" aria-label="HiFi prototype photo">Hi-Fi Prototype Photo</div>
         </div>
         <div class="card">
-          <h3>Wireframes</h3>
-          <div class="mock">Wireframes</div>
+          <h3>Outcomes & Learnings</h3>
+          <ul class="ticks">
+            <li>Form-factor matters: information density must match display size. :contentReference[oaicite:27]{index=27}</li>
+            <li>Avatar + tips help offset “chore” fatigue from interviews. :contentReference[oaicite:28]{index=28}</li>
+            <li>Clear triptych dashboard aids at-a-glance understanding. :contentReference[oaicite:29]{index=29}</li>
+          </ul>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section id="deliver" class="panel p3">
-    <div class="container stack">
-      <h2>Part 3 — Deliver 🟤</h2>
-      <p>Brown represents grounded impact—shipping, measurement, and iteration.</p>
       <div class="grid2">
         <div class="card">
-          <h3>Handoff & Implementation</h3>
+          <h3>Next Steps</h3>
           <ul class="ticks">
-            <li>Specs exported to dev</li>
-            <li>Accessibility QA</li>
+            <li>Refine hardware ergonomics and display readability. :contentReference[oaicite:30]{index=30}</li>
+            <li>Run usability tests on comprehension of “AC health.” :contentReference[oaicite:31]{index=31}</li>
+            <li>Calibrate carbon estimation model and surface “small wins.” :contentReference[oaicite:32]{index=32}</li>
           </ul>
         </div>
         <div class="card">
-          <h3>Results</h3>
+          <h3>Appendix</h3>
           <ul>
-            <li>+18% activation rate</li>
-            <li>-22% support tickets</li>
+            <li>Hardware overview & avatar design states (to-scale images). :contentReference[oaicite:33]{index=33}</li>
+            <li>Task analysis summary. :contentReference[oaicite:34]{index=34}</li>
           </ul>
+          <div class="mock" aria-label="Appendix placeholder">Appendix: Hardware / Avatar / Tasks</div>
         </div>
       </div>
     </div>
@@ -206,20 +313,34 @@
   </footer>
 
   <script>
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Scrollspy
     const sections=[{id:'#discover',tab:'.tabs a[href="#discover"]',dot:'.rail .white'},
                     {id:'#design',tab:'.tabs a[href="#design"]',dot:'.rail .green'},
                     {id:'#deliver',tab:'.tabs a[href="#deliver"]',dot:'.rail .brown'}];
-    const setActive=id=>{sections.forEach(s=>{
-      const t=document.querySelector(s.tab),d=document.querySelector(s.dot);
-      const active=('#'+id)===s.id;
-      t?.classList.toggle('active',active);
-      d?.setAttribute('aria-current',active?'step':'false');
-    })};
+    const setActive = id => {
+      sections.forEach(s=>{
+        const t=document.querySelector(s.tab), d=document.querySelector(s.dot);
+        const active=('#'+id)===s.id;
+        t?.classList.toggle('active',active);
+        d?.setAttribute('aria-current',active?'step':'false');
+      });
+      history.replaceState(null,'','#'+id);
+    };
     const io=new IntersectionObserver(entries=>{
-      entries.forEach(e=>{if(e.isIntersecting){setActive(e.target.id)}})
+      entries.forEach(e=>{ if(e.isIntersecting){ setActive(e.target.id); }});
     },{rootMargin:'-40% 0px -50% 0px',threshold:0.01});
-    sections.forEach(s=>{const el=document.querySelector(s.id);if(el)io.observe(el)});
+    sections.forEach(s=>{ const el=document.querySelector(s.id); if(el) io.observe(el); });
+
+    // Smooth anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const href=a.getAttribute('href');
+        if(href.length>1){ e.preventDefault(); document.querySelector(href)?.scrollIntoView({behavior:'smooth'})}
+      });
+    });
   </script>
 </body>
 </html>
