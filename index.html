@@ -5,23 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Project Portfolio — Three-Part Design Process</title>
   <meta name="description" content="A single-project portfolio that walks through a three-part design process." />
-  <meta property="og:title" content="Project Portfolio — Three-Part Design Process" />
-  <meta property="og:description" content="White → Green → Brown: Discover, Design, Deliver." />
-  <meta property="og:type" content="website" />
   <meta name="theme-color" content="#0C6F57" />
-
   <style>
     :root{
       --white: #ffffff;
       --ink: #0d0f13;
       --muted-ink:#29303a;
-
-      --green: #0C6F57;      /* rich green for Part 2 */
-      --green-ink: #ffffff;  /* text on green */
-
-      --brown: #5A3A28;      /* earthy brown for Part 3 */
-      --brown-ink: #ffffff;  /* text on brown */
-
+      --green: #0C6F57;
+      --green-ink: #ffffff;
+      --brown: #5A3A28;
+      --brown-ink: #ffffff;
       --accent: #0C6F57;
       --border: #e6e9ee;
       --shadow: 0 6px 20px rgba(0,0,0,.08);
@@ -30,197 +23,99 @@
       --maxw: 1100px;
       --navh: 64px;
     }
-
-    /* Reset-ish */
     *,*::before,*::after{box-sizing:border-box}
     body{
       margin:0;
-      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
       color:var(--muted-ink);
-      background: #fcfdff;
-      -webkit-font-smoothing:antialiased; text-rendering: optimizeLegibility;
+      background:#fcfdff;
+      -webkit-font-smoothing:antialiased;
     }
-    h1,h2,h3{color:var(--ink); line-height:1.25; margin:0 0 .6rem}
+    h1,h2,h3{color:var(--ink);line-height:1.25;margin:0 0 .6rem}
     p{margin:.2rem 0 1rem}
-    a{color:var(--accent); text-decoration: none}
-    a:hover{ text-decoration: underline }
-    img{max-width:100%; display:block}
-    .container{max-width:var(--maxw); margin:0 auto; padding:0 20px}
-
-    /* Skip link */
-    .skip{
-      position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
-    }
-    .skip:focus{
-      position:fixed; left:16px; top:16px; width:auto; height:auto; padding:.5rem .75rem; z-index:9999;
-      background:#000; color:#fff; border-radius:8px;
-    }
-
-    /* Top Nav */
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
     .nav{
-      position:sticky; top:0; z-index:50; height:var(--navh);
-      background:rgba(255,255,255,.85); backdrop-filter:saturate(180%) blur(10px);
+      position:sticky;top:0;z-index:50;height:var(--navh);
+      background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(10px);
       border-bottom:1px solid var(--border);
     }
-    .nav .container{ display:flex; align-items:center; height:100%; gap:16px }
-    .brand{ font-weight:700; letter-spacing:.2px }
-    .spacer{ flex:1 }
-    .nav a.btn, .hero a.btn{
-      display:inline-block; padding:.6rem .9rem; border-radius: 999px; border:1px solid var(--accent);
-      text-decoration:none; transition: transform .08s ease, background .2s ease;
-    }
-    .nav a.btn:hover{ transform: translateY(-1px); background:var(--accent); color:#fff; text-decoration:none }
-
-    .tabs{
-      display:flex; gap:8px; align-items:center; padding:.25rem;
-      border:1px solid var(--border); border-radius:999px; background:#fff;
-    }
-    .tab{
-      padding:.45rem .8rem; border-radius:999px; text-decoration:none; color:var(--muted-ink);
-      font-weight:600; border:1px solid transparent;
-    }
-    .tab[aria-current="page"], .tab.active{
-      background: var(--accent); color:#fff; border-color:var(--accent);
-    }
-
-    /* Hero */
-    .hero{
-      padding: clamp(48px, 9vw, 120px) 0 48px;
-      background:
-        radial-gradient(1200px 500px at 80% -20%, rgba(12,111,87,.15), transparent 50%),
-        radial-gradient(900px 400px at -10% 0%, rgba(90,58,40,.12), transparent 50%),
-        linear-gradient(#ffffff, #fbfcff);
-      border-bottom:1px solid var(--border);
-    }
-    .hero h1{ font-size: clamp(32px, 6vw, 56px) }
-    .kicker{
-      display:inline-block; font-weight:700; letter-spacing:.12em; text-transform:uppercase; font-size:.78rem;
-      color:#4b5563; background:#eef6f3; border:1px solid #d8eee7; padding:.25rem .5rem; border-radius:6px; margin-bottom: 12px;
-    }
-    .hero .lead{ font-size: clamp(18px, 2.6vw, 22px); color:#475467 }
-
-    .meta{
-      display:flex; gap:16px; flex-wrap:wrap; margin-top:10px; color:#475467;
-    }
-    .chip{
-      border:1px solid var(--border); padding:.35rem .6rem; border-radius:999px; background:#fff;
-    }
-
-    /* Progress rail (left) */
-    .rail{
-      position:fixed; left:12px; top:calc(var(--navh) + 24px); display:flex; flex-direction:column; gap:10px;
-      z-index:40;
-    }
-    .dot{
-      width:14px; height:14px; border-radius:50%;
-      outline:2px solid #fff; box-shadow:0 0 0 1px rgba(0,0,0,.08);
-      opacity:.5; transition: transform .15s ease, opacity .2s ease;
-    }
-    .dot[aria-current="step"]{ transform: scale(1.1); opacity:1 }
-    .dot.white{ background:var(--white)}
-    .dot.green{ background:var(--green)}
-    .dot.brown{ background:var(--brown)}
-
-    /* Sections */
-    section{ scroll-margin-top: calc(var(--navh) + 16px) }
-
-    .panel{
-      padding: clamp(36px, 6vw, 72px) 0;
-    }
-    .card{
-      background:#fff; border:1px solid var(--border); border-radius:var(--radius);
-      padding: clamp(18px, 2.5vw, 28px); box-shadow: var(--shadow);
-    }
-    .stack{ display:grid; gap:18px }
-    .grid2{ display:grid; grid-template-columns: 1fr; gap:18px }
-    @media(min-width: 900px){
-      .grid2{ grid-template-columns: 1fr 1fr }
-    }
-
-    /* Part 1 — White (Discover) */
-    .p1{ background: var(--white); color: var(--muted-ink) }
-    .p1 .card h3{ margin-top:.4rem }
-
-    /* Part 2 — Green (Design) */
-    .p2{ background: var(--green); color: var(--green-ink) }
-    .p2 .card{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.22) }
-    .p2 a{ color: #ffffff; text-decoration: underline; text-underline-offset: 2px }
-    .p2 h2, .p2 h3{ color:#fff }
-
-    /* Part 3 — Brown (Deliver) */
-    .p3{ background: var(--brown); color: var(--brown-ink) }
-    .p3 .card{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.25) }
-    .p3 h2, .p3 h3{ color:#fff }
-
-    /* Footer */
-    footer{
-      padding:32px 0 60px; border-top:1px solid var(--border); background:#fff
-    }
-
-    /* Nice lists */
-    .ticks{ list-style: none; padding:0; margin:0 }
-    .ticks li{ padding-left:28px; position:relative; margin:.25rem 0 }
-    .ticks li::before{
-      content:""; position:absolute; left:0; top:.45em; width:16px; height:16px; border-radius:50%;
-      background: currentColor; opacity:.18;
-    }
-
-    /* Media blocks */
-    .mock{
-      border:1px solid var(--border); border-radius:12px; background:
-        linear-gradient(180deg, rgba(0,0,0,.06), transparent 120px),
-        #fff;
-      aspect-ratio: 16/10; display:flex; align-items:center; justify-content:center; color:#6b7280;
-      font-weight:600;
-    }
-
-    /* CTA */
-    .cta{
-      background: #0c6f57;
-      color:#fff;
-      border-radius: var(--radius);
-      padding: 28px;
-      display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;
-      box-shadow: var(--shadow);
-    }
-    .cta a.btn{ border-color:#fff }
-
-    /* Print-friendly */
-    @media print{
-      .nav, .rail{ display:none }
-      .hero{ padding:24px 0; background:#fff }
-      .panel{ padding:24px 0 }
-      .card{ box-shadow:none }
-      a{ text-decoration: none }
-    }
+    .nav .container{display:flex;align-items:center;height:100%;gap:16px}
+    .brand{font-weight:700;letter-spacing:.2px}
+    .spacer{flex:1}
+    .tabs{display:flex;gap:8px;align-items:center;padding:.25rem;
+      border:1px solid var(--border);border-radius:999px;background:#fff;}
+    .tab{padding:.45rem .8rem;border-radius:999px;text-decoration:none;color:var(--muted-ink);
+      font-weight:600;border:1px solid transparent;}
+    .tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+    .hero{padding:clamp(48px,9vw,120px) 0 48px;background:
+      radial-gradient(1200px 500px at 80% -20%,rgba(12,111,87,.15),transparent 50%),
+      radial-gradient(900px 400px at -10% 0%,rgba(90,58,40,.12),transparent 50%),
+      linear-gradient(#ffffff,#fbfcff);
+      border-bottom:1px solid var(--border);}
+    .hero h1{font-size:clamp(32px,6vw,56px)}
+    .kicker{display:inline-block;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+      font-size:.78rem;color:#4b5563;background:#eef6f3;border:1px solid #d8eee7;
+      padding:.25rem .5rem;border-radius:6px;margin-bottom:12px;}
+    .hero .lead{font-size:clamp(18px,2.6vw,22px);color:#475467}
+    .meta{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;color:#475467;}
+    .chip{border:1px solid var(--border);padding:.35rem .6rem;border-radius:999px;background:#fff;}
+    .rail{position:fixed;left:12px;top:calc(var(--navh) + 24px);
+      display:flex;flex-direction:column;gap:10px;z-index:40;}
+    .dot{width:14px;height:14px;border-radius:50%;outline:2px solid #fff;
+      box-shadow:0 0 0 1px rgba(0,0,0,.08);opacity:.5;transition:transform .15s ease,opacity .2s ease;}
+    .dot[aria-current="step"]{transform:scale(1.1);opacity:1}
+    .dot.white{background:var(--white)}.dot.green{background:var(--green)}.dot.brown{background:var(--brown)}
+    section{scroll-margin-top:calc(var(--navh) + 16px)}
+    .panel{padding:clamp(36px,6vw,72px) 0;}
+    .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+      padding:clamp(18px,2.5vw,28px);box-shadow:var(--shadow);}
+    .stack{display:grid;gap:18px}
+    .grid2{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:900px){.grid2{grid-template-columns:1fr 1fr}}
+    .p1{background:var(--white);color:var(--muted-ink)}
+    .p2{background:var(--green);color:var(--green-ink)}
+    .p2 .card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.22)}
+    .p2 h2,.p2 h3{color:#fff}
+    .p3{background:var(--brown);color:var(--brown-ink)}
+    .p3 .card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.25)}
+    .p3 h2,.p3 h3{color:#fff}
+    footer{padding:32px 0 60px;border-top:1px solid var(--border);background:#fff}
+    .ticks{list-style:none;padding:0;margin:0}
+    .ticks li{padding-left:28px;position:relative;margin:.25rem 0}
+    .ticks li::before{content:"";position:absolute;left:0;top:.45em;width:16px;height:16px;border-radius:50%;
+      background:currentColor;opacity:.18;}
+    .mock{border:1px solid var(--border);border-radius:12px;background:
+      linear-gradient(180deg,rgba(0,0,0,.06),transparent 120px),#fff;
+      aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;
+      color:#6b7280;font-weight:600;}
+    .cta{background:#0c6f57;color:#fff;border-radius:var(--radius);
+      padding:28px;display:flex;align-items:center;justify-content:space-between;
+      gap:18px;flex-wrap:wrap;box-shadow:var(--shadow);}
   </style>
 </head>
 <body>
-  <a class="skip" href="#start">Skip to content</a>
-
-  <!-- Sticky Nav -->
   <nav class="nav" aria-label="Primary">
     <div class="container">
       <div class="brand">Your Name</div>
       <div class="spacer"></div>
-      <div class="tabs" role="tablist" aria-label="Sections">
-        <a class="tab" href="#discover" role="tab" aria-controls="discover">Discover</a>
-        <a class="tab" href="#design" role="tab" aria-controls="design">Design</a>
-        <a class="tab" href="#deliver" role="tab" aria-controls="deliver">Deliver</a>
+      <div class="tabs">
+        <a class="tab" href="#discover">Discover</a>
+        <a class="tab" href="#design">Design</a>
+        <a class="tab" href="#deliver">Deliver</a>
       </div>
-      <a class="btn" href="#contact">Contact</a>
     </div>
   </nav>
 
-  <!-- Left progress dots -->
-  <div class="rail" aria-label="Progress">
-    <a class="dot white"   href="#discover" title="Discover (White)"  aria-label="Jump to Discover"></a>
-    <a class="dot green"   href="#design"   title="Design (Green)"    aria-label="Jump to Design"></a>
-    <a class="dot brown"   href="#deliver"  title="Deliver (Brown)"   aria-label="Jump to Deliver"></a>
+  <div class="rail">
+    <a class="dot white" href="#discover"></a>
+    <a class="dot green" href="#design"></a>
+    <a class="dot brown" href="#deliver"></a>
   </div>
 
-  <!-- Hero -->
-  <header class="hero" id="start">
+  <header class="hero">
     <div class="container">
       <span class="kicker">Case Study • Single Project</span>
       <h1>Designing <em>Evergreen</em>: From Insight to Impact</h1>
@@ -236,154 +131,69 @@
     </div>
   </header>
 
-  <!-- PART 1: WHITE / DISCOVER -->
-  <section id="discover" class="panel p1" aria-labelledby="h-discover">
+  <section id="discover" class="panel p1">
     <div class="container stack">
-      <h2 id="h-discover">Part 1 — Discover <span aria-hidden="true">⚪</span></h2>
-      <p>
-        We start with a blank canvas—interviews, data audits, and problem framing.
-        This section uses a white backdrop to represent openness and possibility.
-      </p>
-
+      <h2>Part 1 — Discover ⚪</h2>
+      <p>We start with a blank canvas—interviews, data audits, and problem framing.</p>
       <div class="grid2">
         <div class="card">
           <h3>Objectives</h3>
           <ul class="ticks">
             <li>Understand user goals and pain points</li>
-            <li>Size the opportunity and define success metrics</li>
-            <li>Align stakeholders on constraints and scope</li>
+            <li>Define success metrics</li>
+            <li>Align stakeholders</li>
           </ul>
         </div>
         <div class="card">
           <h3>Methods</h3>
-          <p>What we did:</p>
           <ul>
-            <li>8 user interviews + 2 customer walkthroughs</li>
-            <li>Heuristic evaluation of current flow</li>
-            <li>Analytics review (conversion, drop-off)</li>
+            <li>User interviews</li>
+            <li>Heuristic evaluation</li>
+            <li>Analytics review</li>
           </ul>
-        </div>
-      </div>
-
-      <div class="grid2">
-        <div class="card">
-          <h3>Key Insights</h3>
-          <p>Three patterns emerged:</p>
-          <ol>
-            <li>Onboarding friction caused early abandonment.</li>
-            <li>Users needed clearer value propositions in the first 15 seconds.</li>
-            <li>Trust signals (reviews, guarantees) were hidden too deep.</li>
-          </ol>
-        </div>
-        <div class="card">
-          <h3>Artifacts</h3>
-          <div class="mock" aria-label="Placeholder for research artifact">Research Summary.pdf</div>
-          <small>Replace this placeholder with a real image/screenshot from your project.</small>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PART 2: GREEN / DESIGN -->
-  <section id="design" class="panel p2" aria-labelledby="h-design">
+  <section id="design" class="panel p2">
     <div class="container stack">
-      <h2 id="h-design">Part 2 — Design <span aria-hidden="true">🟢</span></h2>
-      <p>
-        Green symbolizes growth—exploration to synthesis. Concepts evolve from sketches to
-        interaction models, then to high-fidelity prototypes.
-      </p>
-
+      <h2>Part 2 — Design 🟢</h2>
+      <p>Green symbolizes growth—exploration to synthesis. Concepts evolve from sketches to prototypes.</p>
       <div class="grid2">
         <div class="card">
-          <h3>Concepts & Rationale</h3>
+          <h3>Concepts</h3>
           <ul class="ticks">
-            <li>Shorter value-first onboarding with inline validation</li>
-            <li>At-a-glance trust signals above the fold</li>
-            <li>Progressive disclosure to reduce cognitive load</li>
+            <li>Streamlined onboarding</li>
+            <li>Trust signals above the fold</li>
           </ul>
         </div>
-        <div class="card">
-          <h3>User Flows</h3>
-          <div class="mock" aria-label="Placeholder for user flow">User Flow.svg</div>
-          <p><small>Swap this with your actual flow diagram.</small></p>
-        </div>
-      </div>
-
-      <div class="grid2">
         <div class="card">
           <h3>Wireframes</h3>
-          <div class="mock" aria-label="Placeholder for wireframes">Wireframes.png</div>
+          <div class="mock">Wireframes</div>
         </div>
-        <div class="card">
-          <h3>Prototype</h3>
-          <p>Testable prototype with critical path interactions.</p>
-          <div class="mock" aria-label="Placeholder for prototype">Prototype Link</div>
-          <p><small>You can link to an external Figma/Framer prototype here.</small></p>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Usability Testing</h3>
-        <p>We ran two rounds (n=5 each). Improvements after Round 1:</p>
-        <ul>
-          <li>Onboarding completion increased from 57% → 81%</li>
-          <li>Time-to-value reduced by 32%</li>
-        </ul>
-        <p><small>Replace these sample outcomes with your real metrics.</small></p>
       </div>
     </div>
   </section>
 
-  <!-- PART 3: BROWN / DELIVER -->
-  <section id="deliver" class="panel p3" aria-labelledby="h-deliver">
+  <section id="deliver" class="panel p3">
     <div class="container stack">
-      <h2 id="h-deliver">Part 3 — Deliver <span aria-hidden="true">🟤</span></h2>
-      <p>
-        Brown represents grounded impact—shipping, measurement, and iteration.
-      </p>
-
+      <h2>Part 3 — Deliver 🟤</h2>
+      <p>Brown represents grounded impact—shipping, measurement, and iteration.</p>
       <div class="grid2">
         <div class="card">
           <h3>Handoff & Implementation</h3>
           <ul class="ticks">
-            <li>Specs and tokens exported to dev</li>
-            <li>Design QA with accessibility checks (WCAG AA)</li>
-            <li>Release notes and change log</li>
+            <li>Specs exported to dev</li>
+            <li>Accessibility QA</li>
           </ul>
         </div>
         <div class="card">
           <h3>Results</h3>
-          <p>Post-launch (8 weeks):</p>
           <ul>
             <li>+18% activation rate</li>
-            <li>−22% support tickets for onboarding</li>
-            <li>+12 NPS on first-session experience</li>
+            <li>-22% support tickets</li>
           </ul>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Before → After</h3>
-        <div class="grid2">
-          <div>
-            <div class="mock" aria-label="Old UI screenshot">Before.png</div>
-            <p><small>Old flow (baseline)</small></p>
-          </div>
-          <div>
-            <div class="mock" aria-label="New UI screenshot">After.png</div>
-            <p><small>New flow (shipped)</small></p>
-          </div>
-        </div>
-      </div>
-
-      <div id="contact" class="cta" role="region" aria-label="Contact">
-        <div>
-          <h3 style="margin:.2rem 0 .4rem">Like this case study?</h3>
-          <p style="margin:0">Let’s talk about your next project.</p>
-        </div>
-        <div>
-          <a class="btn" href="mailto:you@example.com">Email Me</a>
-          <a class="btn" href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to top</a>
         </div>
       </div>
     </div>
@@ -396,46 +206,20 @@
   </footer>
 
   <script>
-    // Smooth-scroll for in-page links
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        const href = a.getAttribute('href');
-        if(href.length > 1){
-          e.preventDefault();
-          const el = document.querySelector(href);
-          if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
-        }
-      });
-    });
-
-    // Scrollspy for tabs and progress dots
-    const sections = [
-      {id:'#discover', tab: '.tabs a[href="#discover"]', dot: '.rail .white'},
-      {id:'#design',   tab: '.tabs a[href="#design"]',   dot: '.rail .green'},
-      {id:'#deliver',  tab: '.tabs a[href="#deliver"]',  dot: '.rail .brown'}
-    ];
-    const setActive = (id) => {
-      sections.forEach(s=>{
-        const t = document.querySelector(s.tab);
-        const d = document.querySelector(s.dot);
-        const active = ('#'+id) === s.id;
-        t?.classList.toggle('active', active);
-        t?.setAttribute('aria-current', active ? 'page' : 'false');
-        d?.setAttribute('aria-current', active ? 'step' : 'false');
-      });
-    };
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          setActive(entry.target.id);
-          history.replaceState(null, '', '#'+entry.target.id);
-        }
-      });
-    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0.01 });
-    sections.forEach(s=>{ const el = document.querySelector(s.id); if(el) io.observe(el); });
-
-    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
+    const sections=[{id:'#discover',tab:'.tabs a[href="#discover"]',dot:'.rail .white'},
+                    {id:'#design',tab:'.tabs a[href="#design"]',dot:'.rail .green'},
+                    {id:'#deliver',tab:'.tabs a[href="#deliver"]',dot:'.rail .brown'}];
+    const setActive=id=>{sections.forEach(s=>{
+      const t=document.querySelector(s.tab),d=document.querySelector(s.dot);
+      const active=('#'+id)===s.id;
+      t?.classList.toggle('active',active);
+      d?.setAttribute('aria-current',active?'step':'false');
+    })};
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){setActive(e.target.id)}})
+    },{rootMargin:'-40% 0px -50% 0px',threshold:0.01});
+    sections.forEach(s=>{const el=document.querySelector(s.id);if(el)io.observe(el)});
   </script>
 </body>
 </html>
