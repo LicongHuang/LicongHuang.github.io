@@ -26,6 +26,27 @@
     }
     .small { font-size: 0.925rem; opacity: .9; }
 
+    .figure{
+      display:block;
+      margin: .5rem 0 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background:#fff;
+    }
+    .figure img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+    .figure figcaption{
+      padding:.6rem .8rem;
+      font-size:.9rem;
+      color:#6b7280;
+      border-top:1px solid var(--border);
+    }
+
+
     :root{
       --white:#ffffff; --ink:#0d0f13; --muted:#29303a;
       --green:#0C6F57; --green-ink:#ffffff;
@@ -288,10 +309,18 @@
             <li></li>
           </ul>
         </div>
-      <div class="card">
-        <h3>Excepted outcome</h3>
-            <!-- TODO insert "lo-fi-sketch-flow.jpg"-->
-      </div>
+
+        <div class="card">
+          <h3>Expected outcome</h3>
+          <p>A consolidated user journey sketch showing the two-button interaction, avatar peek, temperature readout, and send-data confirmation.</p>
+
+          <figure class="figure" aria-label="Lo-fi sketch of device flow">
+            <img src="lo-fi-sketch-flow.jpg" alt="Lo-fi sketch flow: menu → view avatar & temperature → send data → confirmation" />
+            <figcaption>Lo-fi sketch flow (menu → view avatar & temperature → send data → confirmation).</figcaption>
+          </figure>
+        </div>
+
+
       </div>
     </div>
   </section>
