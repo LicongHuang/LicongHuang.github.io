@@ -30,10 +30,35 @@
       border-top:1px solid var(--border);
       background:#fff;
     }
-    /* Full-bleed media card */
-    .card.full-bleed { padding: 0; overflow: hidden; }
-    .card.full-bleed .video { border: none; border-radius: 0; }
-    .video + .video { margin-top: 12px; }
+    /* Full-bleed video that extends to screen edge */
+    .card.full-bleed {
+      position: relative;
+      margin-left: calc(-1 * 20px);
+      margin-right: calc(-1 * 20px);
+      padding: 0;
+      border-radius: 0;
+      overflow: hidden;
+    }
+
+    @media(min-width:1100px){
+      .card.full-bleed {
+        margin-left: calc((100vw - var(--maxw)) / -2);
+        margin-right: calc((100vw - var(--maxw)) / -2);
+      }
+    }
+
+    .card.full-bleed .stack {
+      padding: 24px 20px;
+    }
+
+    .card.full-bleed .video {
+      border: none;
+      border-radius: 0;
+    }
+
+    .video + .video {
+      margin-top: 12px;
+    }
 
     /* Responsive embed for iframes (16:9 by default) */
     .embed{
