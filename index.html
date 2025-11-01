@@ -7,6 +7,32 @@
   <meta name="description" content="A three-part portfolio case study: Discover (White), Design (Green), Deliver (Brown) for a Sustainability Assistant that tracks personal air-conditioning exposure and carbon impact." />
   <meta name="theme-color" content="#0C6F57" />
   <style>
+
+    .video {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;     /* keeps it responsive */
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+    }
+    .video video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .video figcaption{
+      padding:.6rem .8rem;
+      font-size:.9rem;
+      color:#6b7280;
+      border-top:1px solid var(--border);
+      background:#fff;
+    }
+
+
+
 /* Responsive embed for iframes (16:9 by default) */
     .embed{
       position: relative;
@@ -316,7 +342,7 @@
 
           <figure class="figure" aria-label="Lo-fi sketch of device flow">
             <img src="lo-fi-sketch-flow.jpg" alt="Lo-fi sketch flow: menu → view avatar & temperature → send data → confirmation" />
-            <figcaption>Lo-fi sketch flow (menu → view avatar & temperature → send data → confirmation).</figcaption>
+            <figcaption>Expected user behaviour storyboarding.</figcaption>
           </figure>
         </div>
 
