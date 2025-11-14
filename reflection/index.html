@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>dogPT x You – AOL Chat</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
+      background: url("background_temp.png") center/cover fixed no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .window {
+      width: 900px;
+      max-width: 95vw;
+      height: 600px;
+      max-height: 90vh;
+      background: #e7e7e7;
+      border: 3px solid #0047ab;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.45);
+    }
+
+    .titlebar {
+      background: linear-gradient(to right, #0047ab, #1c74d9);
+      color: #fff;
+      padding: 6px 12px;
+      font-weight: bold;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .titlebar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .titlebar-dots {
+      display: flex;
+      gap: 4px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+      background: #f2f2f2;
+    }
+
+    .dot.min { background: #ffbf00; }
+    .dot.max { background: #00c851; }
+    .dot.close { background: #ff4444; }
+
+    .subtitle {
+      background: #d0d0d0;
+      padding: 4px 10px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #b0b0b0;
+    }
+
+    .chat-area {
+      background: #ffffff;
+      flex: 1;
+      margin: 8px;
+      border: 2px inset #c0c0c0;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+
+    .chat-line {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+
+    .chat-line img.avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      border: 1px solid #999;
+      object-fit: cover;
+    }
+
+    .bubble {
+      background: #f2f2f2;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #c0c0c0;
+      max-width: 75%;
+      white-space: pre-wrap;
+      line-height: 1.3;
+    }
+
+    .name {
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+
+    .dogpt .name { color: #006600; }
+    .me .name { color: #000080; }
+
+    .input-bar {
+      background: #dcdcdc;
+      border-top: 1px solid #b0b0b0;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+    }
+
+    .input-top {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .fake-input {
+      flex: 1;
+      height: 24px;
+      border: 1px solid #a0a0a0;
+      background: #c9c9c9;
+    }
+
+    .send-button {
+      width: 70px;
+      height: 24px;
+      border: 1px solid #a9c6db;
+      background: #b7b9bd;
+      font-size: 12px;
+      cursor: default;
+      text-align: center;
+      line-height: 22px;
+      color: #a9c6db;
+      font-weight: bold;
+    }
+
+    .status {
+      text-align: right;
+      opacity: 0.7;
+    }
+
+    .chat-area::-webkit-scrollbar {
+      width: 10px;
+    }
+    .chat-area::-webkit-scrollbar-track {
+      background: #f0f0f0;
+    }
+    .chat-area::-webkit-scrollbar-thumb {
+      background: #c0c0c0;
+    }
+    .chat-area::-webkit-scrollbar-thumb:hover {
+      background: #a0a0a0;
+    }
+  </style>
+</head>
+<body>
+  <div class="window">
+    <div class="titlebar">
+      <div class="titlebar-left">
+        <span>Instant Message — dogPT</span>
+      </div>
+      <div class="titlebar-dots">
+          <img src="close-icon.png" alt='close' class="close-icon">
+      </div>
+    </div>
+
+    <div class="subtitle">
+      <span>Buddy: dogPT (Online)</span>
+      <span>Room: CS3240-reflections</span>
+    </div>
+
+    <div class="chat-area">
+      <!-- dogPT -->
+      <div class="chat-line dogpt">
+        <img src="dogpt.png" class="avatar" alt="dogPT avatar">
+        <div class="bubble">
+          <div class="name">dogPT:</div>
+          Alright human, lets make haste and get right into the weeds, what do you like and dislike about CS3240?
+        </div>
+      </div>
+
+      <!-- You -->
+      <div class="chat-line me">
+        <img src="me.png" class="avatar" alt="Your avatar">
+        <div class="bubble">
+          <div class="name">You:</div>
+          Likes? It forces me to learn about design.
+          <br>Dislikes?
+        </div>
+      </div>
+
+      <!-- dogPT -->
+      <div class="chat-line dogpt">
+        <img src="dogpt.png" class="avatar" alt="dogPT avatar">
+        <div class="bubble">
+          <div class="name">dogPT:</div>
+          Speaking of real, I noticed your notebook has a recurring dog mascot. What’s up with that?
+        </div>
+      </div>
+
+      <!-- You -->
+      <div class="chat-line me">
+        <img src="me.png" class="avatar" alt="Your avatar">
+        <div class="bubble">
+          <div class="name">You:</div>
+          Originally, it was a joke. But later I realised having a character actually fits into what we covered in Week 9 about emotional design and user engagement. The dog became a narrative anchor, like a tiny avatar representing “confused user energy.” and also serving as the character shown on the hardware product. It kept the tone light, but it also helped me think about how design can be playful, it also allows users to feel attachment to the product, to fulfill one of my task requirements.
+        </div>
+      </div>
+
+      <!-- dogPT -->
+      <div class="chat-line dogpt">
+        <img src="dogpt.png" class="avatar" alt="dogPT avatar">
+        <div class="bubble">
+          <div class="name">dogPT:</div>
+          What was going on with your sketches for the individual projects?
+        </div>
+      </div>
+
+      <!-- You -->
+      <div class="chat-line me">
+        <img src="me.png" class="avatar" alt="Your avatar">
+        <div class="bubble">
+          <div class="name">You:</div>
+          For the hardware part, the bitmap sketches were basically me fighting with low resolution. I had to simplify everything using Gestalt principles of similarity, simplicity, proximity, because any visual noise instantly becomes unreadable. So the neutral/hot/cold icons had to be recognisable with like 20 pixels each. I think I did ok for what I am limited to, using motion to represent the various states I think is helpful. I also try to introduce expressions on the screen within the dog avatar, but I think it is a little hard to show through.
+          <br><br>
+          One learning point from it is to make the screen a little larger, this is to allow me as a designer to have more screen estate to express, and for the users to see the screen better.
+        </div>
+      </div>
+
+      <!-- dogPT -->
+      <div class="chat-line dogpt">
+        <img src="dogpt.png" class="avatar" alt="dogPT avatar">
+        <div class="bubble">
+          <div class="name">dogPT:</div>
+          What about the group projects?
+        </div>
+      </div>
+
+      <!-- You -->
+      <div class="chat-line me">
+        <img src="me.png" class="avatar" alt="Your avatar">
+        <div class="bubble">
+          <div class="name">You:</div>
+          For me, the sketching exercises for the group project was rather difficult, because I feel like I am set on a certain design, and trying to iterate over my previous design feels difficult, especially when trying to improve. I don't think I have an eye for design, as I am mainly a utility person, which thinks "if it works, does not need to look nice", which I think is a huge flaw in design.
+          <br><br>
+          But, with discussions with my groupmates, they really help in providing various perspectives and help me in getting better at my visual design aspects.
+        </div>
+      </div>
+
+      <!-- dogPT -->
+      <div class="chat-line dogpt">
+        <img src="dogpt.png" class="avatar" alt="dogPT avatar">
+        <div class="bubble">
+          <div class="name">dogPT:</div>
+          Alright, let’s talk mess-ups. What did users struggle with in the group project?
+        </div>
+      </div>
+
+      <!-- You -->
+      <div class="chat-line me">
+        <img src="me.png" class="avatar" alt="Your avatar">
+        <div class="bubble">
+          <div class="name">You:</div>
+          A couple things. We assumed alot during our design process, which lead to many problems, the spacing was messy at first, violating Gestalt proximity; some elements looked clickable even though they weren’t, so false affordance; and the finalise button didn’t show its state, so we broke visibility of system status and error prevention. We fixed those after applying heuristic evaluation from Week 11, conducting user evaluation, we were able to find certain flaws in the application and make great improvements in our initial designs.
+        </div>
+      </div>
+
+      <!-- dogPT -->
+      <div class="chat-line dogpt">
+        <img src="dogpt.png" class="avatar" alt="dogPT avatar">
+        <div class="bubble">
+          <div class="name">dogPT:</div>
+          And what did you learn from all this?
+        </div>
+      </div>
+
+      <!-- You -->
+      <div class="chat-line me">
+        <img src="me.png" class="avatar" alt="Your avatar">
+        <div class="bubble">
+          <div class="name">You:</div>
+          I learned that design is less about “making nice screens” and more about utilising design to translate messy human behaviours into structured decisions. I also learned that constraints, whether in Figma or hardware, are not obstacles; they allow creativity to flourish. And iterative feedback actually matters.
+        </div>
+      </div>
+
+      <!-- dogPT -->
+      <div class="chat-line dogpt">
+        <img src="dogpt.png" class="avatar" alt="dogPT avatar">
+        <div class="bubble">
+          <div class="name">dogPT:</div>
+          Do you have any existential crisis during this course?
+        </div>
+      </div>
+
+      <!-- You -->
+      <div class="chat-line me">
+        <img src="me.png" class="avatar" alt="Your avatar">
+        <div class="bubble">
+          <div class="name">You:</div>
+          You know, I was take a walk one day. I wonder, why do people create new apps? What is the use of designs when people create new apps? To generate revenue, but how? To spread a product widely, and then enable certain behaviours in the users, like making them dependent on this behaviour, like Uber, Grab, or these gig economy type services. This appears to be good, on the surface, more people getting revenue in turbulent social economic landscape during the COVID period. But, it is a symptom to a deeper underlying issue of the unstable and neoliberalisation of the economy, where people would resort to unstable income source, which was generated from a consumeristic behaviour born from this applications, designed for consumers to pay more and to underpay the actual gig workers. Sure, some may say its dark design, but this has become an industry standard, to expand as quickly as possible and then find ways to generate revenue, leading to newly terms "encrapification" of technology.
+          <br><br>
+          Coming back to this course, I wonder, if by partaking in this class, as a potential future Software Engineer, would I be complicit in making such terrifying cycles in the human consumer behaviour. Taking the course made me realise, how similar design in the new age is similar to fast fashion. Product is designed, human behaviour is changed, then a new design happens, this existing old design is discarded. Especially in the advent of AI, how can I, someone who is aware of the design choices of applications, reconcile with how these designs are changing human's relation with technology. Likened to Cassandra, in the post truth era, would warnings of specialists regarding designs fall on deaf ears before its too late?
+          <br><br>
+          To sustain software lifecycles, there would be endless cycles of growth and consumption, as companies nowadays do not care for workers.
+          <br><br>
+          Anywhos.
+        </div>
+      </div>
+
+      <!-- dogPT -->
+      <div class="chat-line dogpt">
+        <img src="dogpt.png" class="avatar" alt="dogPT avatar">
+        <div class="bubble">
+          <div class="name">dogPT:</div>
+          Last question. If you had to sum up your whole CS3240 experience in one line?
+        </div>
+      </div>
+
+      <!-- You -->
+      <div class="chat-line me">
+        <img src="me.png" class="avatar" alt="Your avatar">
+        <div class="bubble">
+          <div class="name">You:</div>
+          Design is trying to play on human's behaviour to enable a process or a task, repeated refinements done until users stop being confused.
+        </div>
+      </div>
+
+      <!-- dogPT -->
+      <div class="chat-line dogpt">
+        <img src="dogpt.png" class="avatar" alt="dogPT avatar">
+        <div class="bubble">
+          <div class="name">dogPT:</div>
+          Noice, you may pet me now.
+        </div>
+      </div>
+    </div>
+
+    <div class="input-bar">
+      <div class="input-top">
+        <div class="fake-input"></div>
+        <div class="send-button">Send</div>
+      </div>
+      <div class="status">You are talking to dogPT</div>
+    </div>
+  </div>
+</body>
+</html>
+
